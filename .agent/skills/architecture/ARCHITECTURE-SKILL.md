@@ -3,7 +3,7 @@
 > 📚 **这是 COLA 架构 Skill 体系的根节点**，从宏观角度介绍整体架构。
 > 
 > **相关子 Skill：**
-> - [OpenFeign 外部接口调用规范](./OpenFeign-SKILL.md) - 外部 REST API 集成
+> - [OpenFeign 外部接口调用规范](./RESTCALL-SKILL) - 外部 REST API 集成
 > - 🔄 更多子 Skill 待补充...
 
 ---
@@ -214,7 +214,7 @@ public class CustomerGatewayImpl implements CustomerGateway {
 - ✅ 负责 DTO ↔ DO ↔ Entity 的转换
 - ✅ 依赖 Spring、MyBatis 等框架
 
-**外部服务调用规范：** 详见 [OpenFeign-SKILL](./OpenFeign-SKILL.md)
+**外部服务调用规范：** 详见 [OpenFeign-SKILL](./RESTCALL-SKILL)
 
 ---
 
@@ -935,7 +935,7 @@ COLA-SKILL（总纲）
 
 ### 🔗 相关资源
 
-- [OpenFeign 外部接口调用规范](./OpenFeign-SKILL.md)
+- [OpenFeign 外部接口调用规范](./RESTCALL-SKILL)
 - [项目 README](../../README.md)
 - [快速开始指南](../../QUICKSTART.md)
 
@@ -948,5 +948,5 @@ COLA 架构通过清晰的层次划分和严格的依赖管理，为业务系统
 **记住：架构是手段，不是目的。** 不要为了架构而架构，要根据实际业务需求灵活运用。
 
 **下一步：**
-- 👉 需要调用外部 REST API？查看 [OpenFeign-SKILL](./OpenFeign-SKILL.md)
+- 👉 需要调用外部 REST API？查看 [OpenFeign-SKILL](./RESTCALL-SKILL)
 - 🔄 更多子 Skill 敬请期待...

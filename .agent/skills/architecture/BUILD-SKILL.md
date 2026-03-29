@@ -58,13 +58,13 @@
 **目标：** 不同层的代码放在不同的 Maven 模块中
 
 ```
-harness-engineering/
-├── harness-client         # Client 层
-├── harness-adapter        # Adapter 层
-├── harness-app            # App 层
-├── harness-domain         # Domain 层
-├── harness-infrastructure # Infra 层
-└── harness-start          # 启动模块
+{project}/
+├── {project}-client         # Client 层
+├── {project}-adapter        # Adapter 层
+├── {project}-app            # App 层
+├── {project}-domain         # Domain 层
+├── {project}-infrastructure # Infra 层
+└── {project}-start          # 启动模块
 ```
 
 **好处：**
@@ -81,8 +81,8 @@ harness-engineering/
 ```xml
 <!-- ✅ 正确：上层依赖下层 -->
 <dependency>
-    <groupId>com.harness.engineering</groupId>
-    <artifactId>harness-client</artifactId>
+    <groupId>com.{company}.{project}</groupId>
+    <artifactId>{project}-client</artifactId>
 </dependency>
 
 <!-- ❌ 错误：禁止反向依赖 -->
@@ -134,11 +134,11 @@ start → adapter → client → app → domain ← infrastructure
 #### 标准 Maven 目录
 
 ```
-harness-{module}/
+{project}-{module}/
 ├── src/
 │   ├── main/
 │   │   ├── java/                    # Java 源代码
-│   │   │   └── com/harness/engineering/{module}/
+│   │   │   └── com/{company}/{project}/{module}/
 │   │   │       └── ...              # 按 ARCHITECTURE-SKILL §5 分包
 │   │   └── resources/               # 资源文件
 │   │       ├── mapper/              # MyBatis XML
@@ -176,21 +176,19 @@ harness-{module}/
     <modelVersion>4.0.0</modelVersion>
     
     <!-- 基础坐标 -->
-    <groupId>com.harness.engineering</groupId>
-    <artifactId>harness-engineering</artifactId>
+    <groupId>com.{company}.{project}</groupId>
+    <artifactId>{project}</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Harness Engineering Platform</name>
-    <description>基于 COLA 架构的业务系统工程</description>
     
     <!-- 子模块列表 -->
     <modules>
-        <module>harness-client</module>
-        <module>harness-adapter</module>
-        <module>harness-app</module>
-        <module>harness-domain</module>
-        <module>harness-infrastructure</module>
-        <module>harness-start</module>
+        <module>{project}-client</module>
+        <module>{project}-adapter</module>
+        <module>{project}-app</module>
+        <module>{project}-domain</module>
+        <module>{project}-infrastructure</module>
+        <module>{project}-start</module>
     </modules>
     
     <!-- 属性定义 -->
@@ -240,28 +238,28 @@ harness-{module}/
             
             <!-- 内部模块依赖（版本管理） -->
             <dependency>
-                <groupId>com.harness.engineering</groupId>
-                <artifactId>harness-client</artifactId>
+                <groupId>com.{company}.{project}</groupId>
+                <artifactId>{project}-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.harness.engineering</groupId>
-                <artifactId>harness-adapter</artifactId>
+                <groupId>com.{company}.{project}</groupId>
+                <artifactId>{project}-adapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.harness.engineering</groupId>
-                <artifactId>harness-app</artifactId>
+                <groupId>com.{company}.{project}</groupId>
+                <artifactId>{project}-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.harness.engineering</groupId>
-                <artifactId>harness-domain</artifactId>
+                <groupId>com.{company}.{project}</groupId>
+                <artifactId>{project}-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.harness.engineering</groupId>
-                <artifactId>harness-infrastructure</artifactId>
+                <groupId>com.{company}.{project}</groupId>
+                <artifactId>{project}-infrastructure</artifactId>
                 <version>${project.version}</version>
             </dependency>
             
@@ -340,6 +338,10 @@ harness-{module}/
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <!-- ⭐ 保留方法参数名到字节码（JetCache、Spring 等框架需要） -->
+                    <parameters>true</parameters>
+                    
+                    <!-- 注解处理器路径 -->
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -405,7 +407,7 @@ harness-{module}/
 
 #### 4.2.1 Client 模块
 
-**文件：** `harness-client/pom.xml`
+**文件：** `{project}-client/pom.xml`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -417,14 +419,14 @@ harness-{module}/
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>com.harness.engineering</groupId>
-        <artifactId>harness-engineering</artifactId>
+        <groupId>com.{company}.{project}</groupId>
+        <artifactId>{project}</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>harness-client</artifactId>
+    <artifactId>{project}-client</artifactId>
     <packaging>jar</packaging>
-    <name>Harness Client SDK</name>
+    <name>Client SDK</name>
     <description>客户端接口层 - 服务接口和 DTO 定义</description>
     
     <dependencies>
@@ -453,7 +455,7 @@ harness-{module}/
 
 #### 4.2.2 Domain 模块
 
-**文件：** `harness-domain/pom.xml`
+**文件：** `{project}-domain/pom.xml`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -465,14 +467,14 @@ harness-{module}/
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>com.harness.engineering</groupId>
-        <artifactId>harness-engineering</artifactId>
+        <groupId>com.{company}.{project}</groupId>
+        <artifactId>{project}</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>harness-domain</artifactId>
+    <artifactId>{project}-domain</artifactId>
     <packaging>jar</packaging>
-    <name>Harness Domain Layer</name>
+    <name>Domain Layer</name>
     <description>领域层 - 核心业务逻辑</description>
     
     <dependencies>
@@ -503,7 +505,7 @@ harness-{module}/
 
 #### 4.2.3 Infrastructure 模块
 
-**文件：** `harness-infrastructure/pom.xml`
+**文件：** `{project}-infrastructure/pom.xml`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -515,21 +517,21 @@ harness-{module}/
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>com.harness.engineering</groupId>
-        <artifactId>harness-engineering</artifactId>
+        <groupId>com.{company}.{project}</groupId>
+        <artifactId>{project}</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>harness-infrastructure</artifactId>
+    <artifactId>{project}-infrastructure</artifactId>
     <packaging>jar</packaging>
-    <name>Harness Infrastructure Layer</name>
+    <name>Infrastructure Layer</name>
     <description>基础设施层 - 技术实现</description>
     
     <dependencies>
         <!-- 依赖 Domain 层（实现网关接口） -->
         <dependency>
-            <groupId>com.harness.engineering</groupId>
-            <artifactId>harness-domain</artifactId>
+            <groupId>com.{company}.{project}</groupId>
+            <artifactId>{project}-domain</artifactId>
         </dependency>
         
         <!-- Spring Boot Starter -->
@@ -605,7 +607,7 @@ harness-{module}/
 
 #### 4.2.4 App 模块
 
-**文件：** `harness-app/pom.xml`
+**文件：** `{project}-app/pom.xml`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -617,27 +619,27 @@ harness-{module}/
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>com.harness.engineering</groupId>
-        <artifactId>harness-engineering</artifactId>
+        <groupId>com.{company}.{project}</groupId>
+        <artifactId>{project}</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>harness-app</artifactId>
+    <artifactId>{project}-app</artifactId>
     <packaging>jar</packaging>
-    <name>Harness Application Layer</name>
+    <name>Application Layer</name>
     <description>应用层 - 业务协调</description>
     
     <dependencies>
         <!-- 依赖 Client 层（接口定义） -->
         <dependency>
-            <groupId>com.harness.engineering</groupId>
-            <artifactId>harness-client</artifactId>
+            <groupId>com.{company}.{project}</groupId>
+            <artifactId>{project}-client</artifactId>
         </dependency>
         
         <!-- 依赖 Domain 层（领域模型） -->
         <dependency>
-            <groupId>com.harness.engineering</groupId>
-            <artifactId>harness-domain</artifactId>
+            <groupId>com.{company}.{project}</groupId>
+            <artifactId>{project}-domain</artifactId>
         </dependency>
         
         <!-- Spring Boot Starter -->
@@ -675,7 +677,7 @@ harness-{module}/
 
 #### 4.2.5 Adapter 模块
 
-**文件：** `harness-adapter/pom.xml`
+**文件：** `{project}-adapter/pom.xml`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -687,21 +689,21 @@ harness-{module}/
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>com.harness.engineering</groupId>
-        <artifactId>harness-engineering</artifactId>
+        <groupId>com.{company}.{project}</groupId>
+        <artifactId>{project}</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>harness-adapter</artifactId>
+    <artifactId>{project}-adapter</artifactId>
     <packaging>jar</packaging>
-    <name>Harness Adapter Layer</name>
+    <name>Adapter Layer</name>
     <description>适配层 - 请求接入</description>
     
     <dependencies>
         <!-- 依赖 Client 层（调用服务） -->
         <dependency>
-            <groupId>com.harness.engineering</groupId>
-            <artifactId>harness-client</artifactId>
+            <groupId>com.{company}.{project}</groupId>
+            <artifactId>{project}-client</artifactId>
         </dependency>
         
         <!-- Spring Web MVC -->
@@ -734,7 +736,7 @@ harness-{module}/
 
 #### 4.2.6 Start 模块
 
-**文件：** `harness-start/pom.xml`
+**文件：** `{project}-start/pom.xml`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -746,33 +748,33 @@ harness-{module}/
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>com.harness.engineering</groupId>
-        <artifactId>harness-engineering</artifactId>
+        <groupId>com.{company}.{project}</groupId>
+        <artifactId>{project}</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>harness-start</artifactId>
+    <artifactId>{project}-start</artifactId>
     <packaging>jar</packaging>
-    <name>Harness Start Application</name>
+    <name>Start Application</name>
     <description>启动模块 - 应用入口</description>
     
     <dependencies>
         <!-- 依赖 Adapter 层 -->
         <dependency>
-            <groupId>com.harness.engineering</groupId>
-            <artifactId>harness-adapter</artifactId>
+            <groupId>com.{company}.{project}</groupId>
+            <artifactId>{project}-adapter</artifactId>
         </dependency>
         
         <!-- 依赖 App 层 -->
         <dependency>
-            <groupId>com.harness.engineering</groupId>
-            <artifactId>harness-app</artifactId>
+            <groupId>com.{company}.{project}</groupId>
+            <artifactId>{project}-app</artifactId>
         </dependency>
         
         <!-- 依赖 Infrastructure 层 -->
         <dependency>
-            <groupId>com.harness.engineering</groupId>
-            <artifactId>harness-infrastructure</artifactId>
+            <groupId>com.{company}.{project}</groupId>
+            <artifactId>{project}-infrastructure</artifactId>
         </dependency>
         
         <!-- Spring Boot Starter Web -->
@@ -1054,7 +1056,7 @@ mvn clean package -DskipTests
 mvn clean install -DskipTests
 
 # 只编译指定模块
-mvn clean package -pl harness-start -am -DskipTests
+mvn clean package -pl {project}-start -am -DskipTests
 ```
 
 ### 8.2 依赖命令
@@ -1064,7 +1066,7 @@ mvn clean package -pl harness-start -am -DskipTests
 mvn dependency:tree
 
 # 查看指定模块的依赖树
-mvn dependency:tree -pl harness-start
+mvn dependency:tree -pl {project}-start
 
 # 分析依赖冲突
 mvn dependency:tree -Dverbose -Dincludes=commons-lang
@@ -1077,10 +1079,10 @@ mvn dependency:analyze
 
 ```bash
 # 运行 Spring Boot 应用
-mvn spring-boot:run -pl harness-start
+mvn spring-boot:run -pl {project}-start
 
 # 运行打包后的 JAR
-java -jar harness-start/target/harness-start-1.0.0-SNAPSHOT.jar
+java -jar {project}-start/target/{project}-start-1.0.0-SNAPSHOT.jar
 ```
 
 ---
@@ -1211,7 +1213,7 @@ mvn package -Pprod
 ### 📚 相关 Skill
 - [ARCHITECTURE-SKILL](./ARCHITECTURE-SKILL) - COLA 架构规范
 - [DEVELOP-SKILL](./DEVELOP-SKILL.md) - 开发流程规范
-- [OpenFeign-SKILL](./OpenFeign-SKILL.md) - 外部接口调用规范
+- [OpenFeign-SKILL](./RESTCALL-SKILL) - 外部接口调用规范
 
 ### 🔗 外部资源
 - [Maven 官方文档](https://maven.apache.org/guides/)

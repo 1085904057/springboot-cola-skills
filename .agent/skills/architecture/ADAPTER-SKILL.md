@@ -248,7 +248,7 @@ public Response<CustomerDTO> create(
     
     <parent>
         <groupId>com.{company}.{project}</groupId>
-        <artifactId>{project}-engineering</artifactId>
+        <artifactId>{project}</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     

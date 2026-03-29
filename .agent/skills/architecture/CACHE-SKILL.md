@@ -99,7 +99,7 @@ CacheType.BOTH    // 两级缓存（推荐）⭐
 
 ### 4.1 添加依赖
 
-**文件：** `harness-infrastructure/pom.xml`
+**文件：** `{project}-infrastructure/pom.xml`
 
 ```xml
 <dependencies>
@@ -129,7 +129,7 @@ CacheType.BOTH    // 两级缓存（推荐）⭐
 
 ### 4.2 配置文件
 
-**文件：** `harness-start/src/main/resources/application.yml`
+**文件：** `{project}-start/src/main/resources/application.yml`
 
 ```yaml
 jetcache:
@@ -196,21 +196,21 @@ jetcache:
 
 ### 4.3 启动类配置
 
-**文件：** `harness-start/src/main/java/com/harness/engineering/HarnessStartApplication.java`
+**文件：** `{project}-start/src/main/java/com/{company}/{project}/StartApplication.java`
 
 ```java
-package com.harness.engineering;
+package com.{company}.{project};
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.alicp.jetcache.anno.EnableMethodCache;
 
 @SpringBootApplication
-@EnableMethodCache(basePackages = "com.harness.engineering.app")  // ⭐ 启用方法缓存
-public class HarnessStartApplication {
+@EnableMethodCache(basePackages = "com.{company}.{project}.app")  // ⭐ 启用方法缓存
+public class StartApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(HarnessStartApplication.class, args);
+        SpringApplication.run(StartApplication.class, args);
     }
 }
 ```
@@ -225,18 +225,18 @@ public class HarnessStartApplication {
 
 #### 场景一：简单查询（基础用法）
 
-**文件：** `harness-app/src/main/java/com/harness/engineering/app/customer/service/CustomerServiceImpl.java`
+**文件：** `{project}-app/src/main/java/com/{company}/{project}/app/customer/service/CustomerServiceImpl.java`
 
 ```java
-package com.harness.engineering.app.customer.service;
+package com.{company}.{project}.app.customer.service;
 
-import com.harness.engineering.client.customer.api.CustomerServiceI;
-import com.harness.engineering.client.customer.dto.command.CreateCustomerCmd;
-import com.harness.engineering.client.customer.dto.query.GetCustomerQry;
-import com.harness.engineering.client.dto.Response;
-import com.harness.engineering.client.dto.CustomerDTO;
-import com.harness.engineering.domain.customer.gateway.CustomerGateway;
-import com.harness.engineering.domain.customer.model.Customer;
+import com.{company}.{project}.client.customer.api.CustomerServiceI;
+import com.{company}.{project}.client.customer.dto.command.CreateCustomerCmd;
+import com.{company}.{project}.client.customer.dto.query.GetCustomerQry;
+import com.{company}.{project}.client.dto.Response;
+import com.{company}.{project}.client.dto.CustomerDTO;
+import com.{company}.{project}.domain.customer.gateway.CustomerGateway;
+import com.{company}.{project}.domain.customer.model.Customer;
 import com.alicp.jetcache.anno.Cached;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -492,10 +492,10 @@ public MultiResponse<CustomerDTO> getCustomersByIds(List<Long> ids) {
 
 ### 4.5 缓存配置类（可选）
 
-**文件：** `harness-infrastructure/src/main/java/com/harness/engineering/infrastructure/cache/config/JetCacheConfig.java`
+**文件：** `{project}-infrastructure/src/main/java/com/{company}/{project}/infrastructure/cache/config/JetCacheConfig.java`
 
 ```java
-package com.harness.engineering.infrastructure.cache.config;
+package com.{company}.{project}.infrastructure.cache.config;
 
 import com.alicp.jetcache.anno.support.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -538,19 +538,19 @@ public class JetCacheConfig {
 ### 5.1 目录结构
 
 ```
-harness-engineering/
-├── harness-app/
-│   └── src/main/java/com/harness/engineering/app/customer/
+{project}/
+├── {project}-app/
+│   └── src/main/java/com/{company}/{project}/app/customer/
 │       └── service/
 │           └── CustomerServiceImpl.java  ← 使用 @Cached 注解
 │
-├── harness-domain/
-│   └── src/main/java/com/harness/engineering/domain/customer/
+├── {project}-domain/
+│   └── src/main/java/com/{company}/{project}/domain/customer/
 │       └── gateway/
 │           └── CustomerGateway.java      ← 网关接口（无缓存）
 │
-└── harness-infrastructure/
-    └── src/main/java/com/harness/engineering/infrastructure/
+└── {project}-infrastructure/
+    └── src/main/java/com/{company}/{project}/infrastructure/
         ├── customer/gatewayimpl/
         │   └── CustomerGatewayImpl.java  ← 网关实现（无缓存）
         └── cache/config/
@@ -1245,7 +1245,7 @@ public class MultiLevelCache {
 - [ARCHITECTURE-SKILL](./ARCHITECTURE-SKILL) - COLA 架构规范
 - [BUILD-SKILL](./BUILD-SKILL.md) - Maven 构建规范
 - [DEVELOP-SKILL](./DEVELOP-SKILL.md) - 开发流程规范
-- [OpenFeign-SKILL](./OpenFeign-SKILL.md) - 外部接口调用规范
+- [OpenFeign-SKILL](./RESTCALL-SKILL) - 外部接口调用规范
 
 ### 🔗 外部资源
 - [JetCache 官方文档](https://github.com/alibaba/jetcache)

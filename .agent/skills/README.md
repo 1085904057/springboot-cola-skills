@@ -11,6 +11,10 @@
 │
 ├── 📄 ARCHITECTURE-SKILL（总纲）⭐ 根节点
 │   │
+│   ├── 📄 ADAPTER-SKILL（REST API 开发）✅ 已创建
+│   ├── 📄 BUILD-SKILL（工程构建）✅ 已创建
+│   ├── 📄 CACHE-SKILL（缓存设计）✅ 已创建
+│   ├── 📄 CODEGEN-SKILL（代码生成）✅ 已创建
 │   ├── 📄 DEVELOP-SKILL（开发流程）✅ 已创建
 │   └── 📄 OpenFeign-SKILL（外部接口调用）✅ 已创建
 │
@@ -42,8 +46,12 @@
 | Skill 名称 | 描述 | 状态 |
 |-----------|------|------|
 | [ARCHITECTURE-SKILL](./architecture/ARCHITECTURE-SKILL) | COLA 架构总纲，介绍整体架构和分层原则 | ✅ 已完成 |
+| [ADAPTER-SKILL](./architecture/ADAPTER-SKILL.md) | Adapter 层 REST API 开发规范，Swagger 文档、Validation 校验 | ✅ 已完成 ⭐ |
+| [BUILD-SKILL](./architecture/BUILD-SKILL.md) | Maven 项目构建规范，模块划分、依赖管理、多环境配置 | ✅ 已完成 |
+| [CACHE-SKILL](./architecture/CACHE-SKILL.md) | JetCache 缓存设计规范，声明式缓存、多级缓存、防穿透击穿 | ✅ 已完成 |
+| [CODEGEN-SKILL](./architecture/CODEGEN-SKILL.md) | Lombok + MapStruct 使用规范，POJO 简化、对象转换、Converter 编写 | ✅ 已完成 ⭐ |
 | [DEVELOP-SKILL](./architecture/DEVELOP-SKILL.md) | COLA 架构开发流程规范，覆盖新功能、迭代、Bug 修复 | ✅ 已完成 |
-| [OpenFeign-SKILL](./architecture/OpenFeign-SKILL.md) | 使用 OpenFeign 进行外部 REST API 调用 | ✅ 已完成 |
+| [OpenFeign-SKILL](./architecture/RESTCALL-SKILL) | 使用 OpenFeign 进行外部 REST API 调用 | ✅ 已完成 |
 
 ### 🔧 Infrastructure（基础设施使用规范）
 
@@ -76,28 +84,39 @@
 
 ---
 
-## 🚀 快速导航
+### 🚀 快速导航
 
 ### 新手入门路径
 
 1. **第一步：** 阅读 [ARCHITECTURE-SKILL](./architecture/ARCHITECTURE-SKILL) - 了解整体架构
-2. **第二步：** 查看 [DEVELOP-SKILL](./architecture/DEVELOP-SKILL.md) - 了解开发流程
-3. **第三步：** 查看项目 [README](../../README.md) - 了解项目结构
-4. **第四步：** 参考 [QUICKSTART](../../QUICKSTART.md) - 快速开始开发
-5. **第五步：** 根据需求查看对应的子 Skill（如 OpenFeign-SKILL）
+2. **第二步：** 查看 [BUILD-SKILL](./architecture/BUILD-SKILL.md) - 了解项目构建
+3. **第三步：** 查看 [DEVELOP-SKILL](./architecture/DEVELOP-SKILL.md) - 了解开发流程
+4. **第四步：** 查看项目 [README](../../README.md) - 了解项目结构
+5. **第五步：** 参考 [QUICKSTART](../../QUICKSTART.md) - 快速开始开发
+6. **第六步：** 根据需求查看对应的子 Skill：
+   - 需要定义 REST API → [ADAPTER-SKILL](./architecture/ADAPTER-SKILL.md) ⭐
+   - 需要使用缓存 → [CACHE-SKILL](./architecture/CACHE-SKILL.md)
+   - 需要简化 POJO → [CODEGEN-SKILL](./architecture/CODEGEN-SKILL.md)
+   - 需要调用外部 API → [OpenFeign-SKILL](./architecture/RESTCALL-SKILL)
 
 ### 常见场景导航
 
 #### 场景一：需要调用外部 REST API
-👉 查看 [OpenFeign-SKILL](./architecture/OpenFeign-SKILL.md)
+👉 查看 [OpenFeign-SKILL](./architecture/RESTCALL-SKILL)
 
-#### 场景二：需要操作数据库
+#### 场景二：需要定义 REST API 接口
+👉 查看 [ADAPTER-SKILL](./architecture/ADAPTER-SKILL.md)
+
+#### 场景三：需要操作数据库
 🔒 MyBatis-SKILL（待创建）
 
-#### 场景三：需要使用缓存
-🔒 Redis-SKILL（待创建）
+#### 场景四：需要使用缓存
+👉 查看 [CACHE-SKILL](./architecture/CACHE-SKILL.md)
 
-#### 场景四：需要发送消息
+#### 场景四：需要简化 POJO 和对象转换
+👉 查看 [CODEGEN-SKILL](./architecture/CODEGEN-SKILL.md)
+
+#### 场景五：需要发送消息
 🔒 MQ-SKILL（待创建）
 
 #### 场景五：需要统一异常处理
@@ -143,7 +162,11 @@
 
 | 日期 | 新增/更新内容 | 作者 |
 |------|-------------|------|
+| 2026-03-28 | 创建 ADAPTER-SKILL REST API 开发规范 | Harness Team |
 | 2026-03-28 | 创建 ARCHITECTURE-SKILL 总纲 | Harness Team |
+| 2026-03-28 | 创建 BUILD-SKILL 工程构建规范 | Harness Team |
+| 2026-03-28 | 创建 CACHE-SKILL 缓存设计规范 | Harness Team |
+| 2026-03-28 | 创建 CODEGEN-SKILL 代码生成规范（Lombok + MapStruct） | Harness Team |
 | 2026-03-28 | 创建 DEVELOP-SKILL 开发流程规范 | Harness Team |
 | 2026-03-28 | 创建 OpenFeign-SKILL | Harness Team |
 | 2026-03-28 | 创建 Skills 索引页 | Harness Team |
