@@ -50,6 +50,12 @@
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
 
+        <!-- Svix SDK -->
+        <dependency>
+            <groupId>com.svix</groupId>
+            <artifactId>svix</artifactId>
+        </dependency>
+
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
